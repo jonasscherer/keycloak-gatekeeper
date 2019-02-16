@@ -691,6 +691,8 @@ func (r *oauthProxy) newOpenIDClient() (*oidc.Client, oidc.ProviderConfig, *http
 			r.log.Warn("failed to get provider configuration from discovery", zap.Error(err))
 			time.Sleep(time.Second * 3)
 		}
+		config.Issuer.Scheme="https"
+		config.AuthEndpoint.Scheme="https"
 		completeCh <- true
 	}()
 	// wait for timeout or successful retrieval
